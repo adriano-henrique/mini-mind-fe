@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import FolderService from './services/folder';
+import MiniMindHeader from './components/headers';
 
-function App() {
+export default function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1 className="font-bold underline text-3xl"> Hello from tailwind </h1>
+        <MiniMindHeader />
       </header>
     </div>
   );
 }
-
-export default App;

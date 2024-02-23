@@ -1,6 +1,6 @@
 {
-  "name": "Chrome React SEO Extension",
-   "description": "The power of React and TypeScript for building interactive Chrome extensions",
+  "name": "Mini Mind",
+   "description": "Your mini mind companion that will help you remember any information you need",
    "version": "1.0",
    "manifest_version": 3,
    "action": {
