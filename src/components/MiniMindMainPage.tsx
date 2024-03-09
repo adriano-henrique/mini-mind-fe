@@ -1,25 +1,24 @@
-import React, { useEffect } from "react";
-import FolderService, { GetFoldersData, GetFoldersResponse } from "../services/folder";
+import { GetFoldersData } from "../types/folder";
 import { HttpStatusCode } from "axios";
 import MiniMindFolderAccordion from "./folder-list/MiniMindFolderAccordion";
+import { useFetchMiniMindAPI } from "../hooks/useFetchMiniMindAPI";
+import { LoadingSpinner } from "./ui/loading";
 
 export default function MiniMindMainPage() {
-    const [responseStatus, setResponseStatus] = React.useState<number>(0)
-    const [folders, setFolders] = React.useState<GetFoldersData | null>(null)
-    useEffect(() => {
-        FolderService.getAllFolders()
-        .then((response: GetFoldersResponse) => {
-            setResponseStatus(response.status)
-            setFolders(response.data)
-        }).catch((e: Error) => {
-            console.log(e);
-        })
-    }, [])
+    const { data, isPending, responseStatus, error } = useFetchMiniMindAPI<GetFoldersData>("/folder/all")    
 
-    if (responseStatus !== HttpStatusCode.Ok || !folders) {
+    if (responseStatus !== HttpStatusCode.Ok || !data) {
         return <div>Something went wrong</div>
     }
+
+    if (isPending) {
+        return <div className="w-full">
+            <div className="flex justify-center items-center">
+                <LoadingSpinner size={50} />
+            </div>
+        </div>
+    }
     return <div className="w-full">
-            <MiniMindFolderAccordion foldersData={folders} />
+            <MiniMindFolderAccordion foldersData={data} />
         </div>
 }
