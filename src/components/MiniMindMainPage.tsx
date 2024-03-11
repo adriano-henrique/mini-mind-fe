@@ -1,12 +1,11 @@
-import { GetFoldersData } from "../types/folder";
+import { GetMindData } from "../types/folder";
 import { HttpStatusCode } from "axios";
 import MiniMindFolderAccordion from "./folder-list/MiniMindFolderAccordion";
 import { useFetchMiniMindAPI } from "../hooks/useFetchMiniMindAPI";
 import { LoadingSpinner } from "./ui/loading";
 
 export default function MiniMindMainPage() {
-    const { data, isPending, responseStatus, error } = useFetchMiniMindAPI<GetFoldersData>("/folder/all")    
-
+    const { data, isPending, responseStatus, error } = useFetchMiniMindAPI<GetMindData>("/mind/get/111")    
     if (responseStatus !== HttpStatusCode.Ok || !data) {
         return <div>Something went wrong</div>
     }
@@ -19,6 +18,6 @@ export default function MiniMindMainPage() {
         </div>
     }
     return <div className="w-full">
-            <MiniMindFolderAccordion foldersData={data} />
+            <MiniMindFolderAccordion mindData={data} />
         </div>
 }

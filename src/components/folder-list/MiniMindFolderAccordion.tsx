@@ -1,25 +1,29 @@
 "use client"
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion"
-import { GetFoldersData } from "../../types/folder"
+import { GetFoldersData, GetMindData } from "../../types/folder"
 
 type FolderListElementProps = {
-    foldersData: GetFoldersData,
+    mindData: GetMindData,
 }
 
-export default function MiniMindFolderAccordion({foldersData}: FolderListElementProps) {
-    const foldersList = foldersData.data
+export default function MiniMindFolderAccordion({mindData}: FolderListElementProps) {
+    const mindResponse = mindData.data
+    const folderNuggets = mindResponse.folderNuggets
     return <Accordion type="single" collapsible className="w-full">
-        {foldersList.map((folder, index) => {
+        {folderNuggets.map((mind, index) => {
           let itemValue = `item-${index + 1}`
             return (
               <AccordionItem value={itemValue}
-                key={folder.id}>
-                <AccordionTrigger>{folder.folderName}</AccordionTrigger>
-                <AccordionContent>
-                  Yes. It adheres to the WAI-ARIA design pattern.
-                </AccordionContent>
-                <AccordionContent>Testing second content on accordion</AccordionContent>
+                key={mind.folderID}>
+                <AccordionTrigger>{mind.folderName}</AccordionTrigger>
+                {mind.nuggets.map((nugget, index) => {
+                    let itemValue = `item-${index + 1}`
+                    return (
+                          <AccordionContent key={itemValue}>
+                              {nugget.value}
+                          </AccordionContent>
+                    )})}
               </AccordionItem>
             )})
 }
