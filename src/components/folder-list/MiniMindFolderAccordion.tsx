@@ -2,6 +2,7 @@
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion"
 import { GetFoldersData, GetMindData } from "../../types/folder"
+import MiniMindAccordionContent from "./MiniMindAccordionContent"
 
 type FolderListElementProps = {
     mindData: GetMindData,
@@ -20,9 +21,7 @@ export default function MiniMindFolderAccordion({mindData}: FolderListElementPro
                 {mind.nuggets.map((nugget, index) => {
                     let itemValue = `item-${index + 1}`
                     return (
-                          <AccordionContent key={itemValue}>
-                              {nugget.value}
-                          </AccordionContent>
+                          <MiniMindAccordionContent nugget={nugget} key={itemValue} />
                     )})}
               </AccordionItem>
             )})
